@@ -15,18 +15,24 @@ public class StringMaxSubStr {
         String str = "pwwkewkjldfgwdsfjxidsmmmmmmmmaaaa";
         int maxlength = 0;
         int len = str.length();
-        //记录下一个不重复字符的位置
         int start = 0, end = 0;
+        //记录下一个不重复字符的位置
         Map<Character, Integer> map = new HashMap<Character, Integer>();
+        int finalStart = 0, finalEnd = 0;
         for (; end < len; end++) {
             char c = str.charAt(end);
             if (map.containsKey(c)) {
                 start = Math.max(map.get(c), start);
             }
             map.put(c, end + 1);
-            maxlength = Math.max(maxlength, end - start + 1);
+            int max = end - start + 1;
+            if (max > maxlength) {
+                maxlength = max;
+                finalStart = start;
+                finalEnd = end;
+            }
         }
         System.out.println("最大长度:" + maxlength);
-        System.out.println(str.substring(start, end));
+        System.out.println(str.substring(finalStart, finalEnd + 1));
     }
 }
